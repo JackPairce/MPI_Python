@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "project-calcul"
+version = "0.1.0"
+description = ""
+authors = ["Jack Pairce <worldofspeeders@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+numpy = "^1.26.4"
+rich = "^13.7.1"
+mpi4py = "^3.1.6"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
