@@ -22,7 +22,7 @@ if rank == 0:
     banchmark: List[float] = []
     Speedup: List[float] = []
     # generate points
-    Number = 10**4
+    Number = 10**3
     test_percent = 0.2
     points = PointsGenerator(3, Number, 0, 10)
     target = {
@@ -60,7 +60,7 @@ for desired_size in range(1, size + 1):
         )
 
     output: List[TypeResult] | None = comm.gather((result), root=0)
-    if rank < desired_size and rank == 0 and output is not None:
+    if output is not None:
         sequential_time_block = timeit.default_timer()
         ToPredict: Dict[TypeCoordinate, TypePointsWithDistances] = {
             c: [] for c in new_points
@@ -85,9 +85,6 @@ for desired_size in range(1, size + 1):
             __import__("sklearn.preprocessing", fromlist=["LabelEncoder"]),
             "LabelEncoder",
         )
-        # from sklearn.metrics import accuracy_score
-        # from sklearn.preprocessing import LabelEncoder
-
         classes = list(set([i[0] for i in points]))
         encoded_classes = LabelEncoder().fit_transform(classes)
         doc = {c: e for c, e in zip(classes, encoded_classes)}  # type: ignore
@@ -98,10 +95,9 @@ for desired_size in range(1, size + 1):
         X.append(desired_size)
         banchmark.append(time_perfomance)
         real_sequential_time = sequential_time + time_perfomance
-        if desired_size == 1:
-            Speedup.append(real_sequential_time / real_sequential_time)
-        else:
-            Speedup.append(real_sequential_time / time_perfomance)
+        Speedup.append(
+            1 if desired_size == 1 else real_sequential_time / time_perfomance
+        )
         print(
             f"{sequential_time = },{time_perfomance = },speedup: {sequential_time / time_perfomance}"
         )
