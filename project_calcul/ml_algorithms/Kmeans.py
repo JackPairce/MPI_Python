@@ -3,7 +3,7 @@ from typing import Dict, List, Tuple
 import numpy as np
 from numpy import dtype, ndarray
 
-from project_calcul.tools import random_arrays_choice
+from project_calcul.ml_algorithms.tools import random_arrays_choice
 
 
 def ArrayCentroids(centroids: dict) -> ndarray[Tuple, dtype]:

@@ -8,7 +8,9 @@ colors = list(cnames.keys())
 
 
 def RandomList(start: float, end: float, N: int, classe: str) -> list[Tuple]:
-    return [(ran(start, end), ran(start, end), classe) for _ in range(N)]
+    return [
+        (ran(start, end), ran(start, end), ran(start, end), classe) for _ in range(N)
+    ]
 
 
 def RandomColorList(N: int) -> list[str]:
